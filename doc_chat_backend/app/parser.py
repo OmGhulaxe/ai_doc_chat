@@ -1,4 +1,4 @@
-# app/rag/parser.py
+
 from unstructured.partition.auto import partition
 from typing import List
 

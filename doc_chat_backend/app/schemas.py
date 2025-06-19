@@ -15,11 +15,6 @@ class UserLogin(BaseModel):
 class TokenResponse(BaseModel):
     access_token: str
 
-# class DocumentOut(BaseModel):
-#     id: int
-#     filename: str
-#     content: str
-#     uploaded_at: datetime
 class DocumentResponse(BaseModel):
     id: int
     filename: str

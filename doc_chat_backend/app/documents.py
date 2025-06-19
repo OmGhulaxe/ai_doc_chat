@@ -55,52 +55,7 @@ async def upload_document(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Parsing failed: {str(e)}")
 
-# @router.post("/upload")
-# async def upload_document(
-#     file: UploadFile = File(...),
-#     db: Session = Depends(get_db),
-#     current_user: User = Depends(get_current_user)
-# ):
-#     if not os.path.exists(UPLOAD_DIR):
-#         os.makedirs(UPLOAD_DIR)
 
-#     file_path = os.path.join(UPLOAD_DIR, file.filename)
-
-#     try:
-#         # Save the uploaded file
-#         with open(file_path, "wb") as f:
-#             content = await file.read()
-#             f.write(content)
-
-#         # Use unstructured.io to parse the file
-#         elements = partition(filename=file_path)
-
-#         # Extract and join the text content
-#         full_content = "\n".join([
-#             str(el.text).strip()
-#             for el in elements
-#             if hasattr(el, "text") and el.text
-#         ])
-
-#         if not full_content.strip():
-#             raise HTTPException(status_code=400, detail="Parsed content is empty.")
-
-#         # Save document metadata and content to DB
-#         save_document(
-#             filename=file.filename,
-#             content=full_content,
-#             user_id=current_user.id,
-#             db=db
-#         )
-
-#         return {
-#             "filename": file.filename,
-#             "content_snippet": full_content[:300] + "..." if len(full_content) > 300 else full_content,
-#             "uploaded_at": datetime.utcnow().isoformat()
-#         }
-
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=f"Parsing failed: {str(e)}")
 
 @router.get("/documents", response_model=List[schemas.DocumentResponse])
 def list_documents(db: Session = Depends(get_db)):
